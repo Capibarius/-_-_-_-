@@ -1,0 +1,23 @@
+CREATE TABLE Users (
+    UserID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    DateOfBirth DATE NOT NULL,
+    TimeOfBirth TIME
+);
+
+CREATE TABLE ForecastCatalog (
+    ForecastID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name VARCHAR(100) NOT NULL,
+    MonthlyPrice NUMERIC(10, 2) NOT NULL
+);
+
+CREATE TABLE Subscriptions (
+    SubscriptionID INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserID INTEGER NOT NULL,
+    ForecastID INTEGER NOT NULL,
+    StartDate DATE NOT NULL,
+    DurationMonths INTEGER NOT NULL,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (ForecastID) REFERENCES ForecastCatalog(ForecastID),
+    UNIQUE (UserID, ForecastID, StartDate)
+)
